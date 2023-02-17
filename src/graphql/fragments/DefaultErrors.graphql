@@ -1,0 +1,4 @@
+fragment DefaultErrors on FieldError {
+  field
+  message
+}
