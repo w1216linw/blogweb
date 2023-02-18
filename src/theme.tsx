@@ -38,7 +38,7 @@ const theme = extendTheme({
     DarkMode
   },
   fonts,
-  breakpoints,
+  breakpoints
 });
 
 export default theme;

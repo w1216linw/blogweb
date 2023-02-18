@@ -1,21 +1,18 @@
 import {
   Box,
   Button,
+  Center,
   Container,
   Flex,
   Heading,
   Spinner,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 import { withUrqlClient } from "next-urql";
-import NextLink from "next/link";
 import { useState } from "react";
 import Layout from "../components/Layout";
 import PostCard from "../components/PostCard";
-import PostControl from "../components/PostControl";
-import UpdootSection from "../components/UpdootSection";
-import { useMeQuery, usePostsQuery } from "../generated/graphql";
+import { usePostsQuery } from "../generated/graphql";
 import { createUrqlClient } from "../utils/createUrqlClient";
 
 const Index = () => {
@@ -29,20 +26,24 @@ const Index = () => {
 
   if (!data) {
     return (
-      <Container>
-        <Spinner size="xl" />
-      </Container>
+      <Center h="100vh">
+          <Spinner size="xl" />
+      </Center>
     );
   }
 
   if (error) {
-    return <Container>{error?.message}</Container>;
+    return (
+      <Center h="100vh">
+          <Heading display={"block"}>{error?.message}</Heading>
+      </Center>
+    );
   }
 
   return (
-    <Box w='100%' h='100%'>
+    <Box w="100%" h="100%">
       <Layout variant="regular">
-        <Box p='0'>
+        <Box p="0">
           <Box>
             {fetching ? (
               <Container>loading...</Container>

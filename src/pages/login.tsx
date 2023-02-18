@@ -1,7 +1,6 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { Box, Button, Flex, Link } from "@chakra-ui/react";
-import { Wrapper } from "../components/Wrapper";
+import { Box, Button, Flex, useToast} from "@chakra-ui/react";
 import { InputField } from "../components/InputField";
 import { useLoginMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
@@ -9,14 +8,17 @@ import { useRouter } from "next/router";
 import { createUrqlClient } from "../utils/createUrqlClient";
 import { withUrqlClient } from "next-urql";
 import NextLink from "next/link";
+import FormContainer from "../components/FormContainer";
+
 
 interface loginProps {}
 
 const Login: React.FC<loginProps> = ({}) => {
+  const toast = useToast();
   const router = useRouter();
   const [, login] = useLoginMutation();
   return (
-    <Wrapper variant="small">
+    <FormContainer>
       <Formik
         initialValues={{ usernameOrEmail: "", password: "" }}
         onSubmit={async (values, { setErrors }) => {
@@ -24,6 +26,13 @@ const Login: React.FC<loginProps> = ({}) => {
           if (response.data?.login.errors) {
             setErrors(toErrorMap(response.data.login.errors));
           } else if (response.data?.login.user) {
+            toast({
+              title: "Hello",
+              description: "You have been logged in",
+              status: "success",
+              duration: 1000,
+              isClosable: true,
+            });
             if (typeof router.query.next === 'string'){
               router.push(router.query.next);
             } else {
@@ -62,7 +71,7 @@ const Login: React.FC<loginProps> = ({}) => {
           </Form>
         )}
       </Formik>
-    </Wrapper>
+    </FormContainer>
   );
 };
 

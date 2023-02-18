@@ -1,21 +1,22 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { Button } from "@chakra-ui/react";
-import { Wrapper } from "../components/Wrapper";
+import { Button, useToast } from "@chakra-ui/react";
 import { InputField } from "../components/InputField";
 import { useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from 'next/router';
 import { withUrqlClient } from "next-urql"
 import { createUrqlClient } from "../utils/createUrqlClient";
+import FormContainer from "../components/FormContainer";
 
 interface registerProps {}
 
 const Register: React.FC<registerProps> = ({}) => {
+  const toast = useToast();
   const router = useRouter();
   const [, register] = useRegisterMutation();
   return (
-    <Wrapper variant="small">
+    <FormContainer>
       <Formik
         initialValues={{ username: "", password: "", email: "" }}
         onSubmit={async (values, { setErrors }) => {
@@ -24,6 +25,13 @@ const Register: React.FC<registerProps> = ({}) => {
             setErrors(toErrorMap(response.data.register.errors));
           } else if (response.data?.register.user) {
             router.push('/');
+            toast({
+              title: "Hello",
+              description: "You have been logged in",
+              status: "success",
+              duration: 1000,
+              isClosable: true,
+            });
           }
         }}
       >
@@ -57,7 +65,7 @@ const Register: React.FC<registerProps> = ({}) => {
           </Form>
         )}
       </Formik>
-    </Wrapper>
+    </FormContainer>
   );
 };
 

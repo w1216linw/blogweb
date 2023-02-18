@@ -9,6 +9,7 @@ const ColorModeSwitcher = () => {
       colorScheme={"gray"}
       icon={colorMode === "light" ? <SunIcon color="orange.400" /> : <MoonIcon color="blue.200"/>}
       aria-label="color mode switcher"
+      ms='2rem'
     />
   );
 };

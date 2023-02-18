@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import { withUrqlClient } from "next-urql"
 import Layout from "../../components/Layout";
 import PostControl from "../../components/PostControl";
@@ -28,14 +28,14 @@ export const Post = ({}) => {
   }
 
   return (
-    <Layout variant="regular">
-      <main>
-        <h3>{data.post.title}</h3>
+    <Layout variant="regular" input>
+      <Box>
+        <Heading>{data.post.title}</Heading>
         <Box>{data.post.text}</Box>
         <Box>
           <PostControl id={data.post.id} creatorId={data.post.creatorId}/>
         </Box>
-      </main>
+      </Box>
     </Layout>
   );
 }
