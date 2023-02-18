@@ -1,4 +1,9 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, ThemeConfig, useColorModeValue } from "@chakra-ui/react";
+
+const config: ThemeConfig = {
+  initialColorMode: 'dark',
+  useSystemColorMode: true,
+}
 
 const fonts = { mono: `'Menlo', monospace` };
 
@@ -9,24 +14,31 @@ const breakpoints = {
   xl: "80em",
 };
 
+const DarkMode = {
+  primary: {
+    500: '#161B25',
+    400: '#3A3C4E',
+    300: "#57596C"
+  }
+}
+
+const LightMode = {
+  primary: {
+    500: '#DAE0E6',
+    400: '#EEEEEE',
+    300: "#F5F5F5"
+  }
+}
+
 const theme = extendTheme({
+  config,
   colors: {
-    darkDark: "#232328",
-    darkReg: "#2F313A",
-    darkLight: "#333642",
-    lightReg: "#e2e2e2",
-    lightLight: "#f1f1f1",
+    white: "#DAE0E6",
+    LightMode,
+    DarkMode
   },
   fonts,
   breakpoints,
-  styles: {
-    global: {
-      body: {
-        bg: "darkLight",
-        color: 'lightReg'
-      },
-    },
-  },
 });
 
 export default theme;

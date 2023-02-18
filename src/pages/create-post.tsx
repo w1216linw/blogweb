@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react';
+import { Button, Container } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import { InputField } from '../components/InputField';
 import { useRouter } from 'next/router';
@@ -15,7 +15,7 @@ const createPost: React.FC<{}> = ({}) => {
   const [,createPost] = useCreatePostMutation();
 
   return (
-    <Layout variant="small">
+    <Layout variant="small" input>
       <Formik
         initialValues={{ title: "", text: ""}}
         onSubmit={async (values, { setErrors }) => {

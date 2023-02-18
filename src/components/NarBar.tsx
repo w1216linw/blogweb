@@ -1,7 +1,8 @@
-import { Box, Button, Flex, Heading } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
+import ColorModeSwitcher from "./ColorModeSwitcher";
 
 export const NavBar = () => {
   const router = useRouter();
@@ -21,15 +22,15 @@ export const NavBar = () => {
   //user is logged in
   else {
     body = (
-      <Flex gap={2} align='center'>
-        <Button mr='2rem' colorScheme='gray'>
-          <NextLink href='/create-post'>Create Post</NextLink> 
+      <Flex gap={2} align="center">
+        <Button mr="2rem" colorScheme="gray">
+          <NextLink href="/create-post">Create Post</NextLink>
         </Button>
         <Box>{data.me.username}</Box>
         <Button
           variant="link"
           onClick={() => {
-            logout({})
+            logout({});
             router.reload();
           }}
           isLoading={logoutFetching}
@@ -41,11 +42,22 @@ export const NavBar = () => {
   }
 
   return (
-    <Flex zIndex="1" position="sticky" top="0" bg="darkDark" color='lightLight' p={4} align="center">
+    <Flex
+      zIndex="1"
+      position="sticky"
+      top="0"
+      bg={useColorModeValue('LightMode.primary.300','DarkMode.primary.500')}
+      color="lightLight"
+      p={4}
+      align="center"
+    >
       <NextLink href="/">
         <Heading>Blog</Heading>
       </NextLink>
-      <Box ml={"auto"}>{body}</Box>
+      <Flex ml={"auto"} gap={2}>
+        {body}
+        <ColorModeSwitcher />
+      </Flex>
     </Flex>
   );
 };

@@ -1,4 +1,4 @@
-import { Flex, Heading, Box, Text} from "@chakra-ui/react";
+import { Flex, Heading, Box, Text, useColorModeValue} from "@chakra-ui/react";
 import PostControl from "./PostControl";
 import UpdootSection from "./UpdootSection";
 import NextLink from "next/link";
@@ -9,7 +9,7 @@ interface PostCardProps {
 
 const PostCard: React.FC<PostCardProps> = ({post: p}) => {
   return (
-    <Flex key={p.id} p={5} shadow="md" gap="4" bg="darkReg">
+    <Flex key={p.id} p={5} shadow="md" gap="4" bg={useColorModeValue('LightMode.primary.400','DarkMode.primary.400')} borderRadius='md'>
       <UpdootSection post={p} />
       <Box>
         <NextLink href="/post/[id]" as={`/post/${p.id}`}>
