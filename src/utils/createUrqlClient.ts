@@ -85,7 +85,8 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
       resolvers: {
         Query: {
           posts: simplePagination(),
-        }
+          myPosts: simplePagination(),
+        } 
       },
       updates: {
         Mutation: {

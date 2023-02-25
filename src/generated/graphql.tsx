@@ -126,8 +126,15 @@ export type PostResponse = {
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<BUser>;
+  myPosts: PaginatedPosts;
   post?: Maybe<Post>;
   posts: PaginatedPosts;
+};
+
+
+export type QueryMyPostsArgs = {
+  cursor?: InputMaybe<Scalars['String']>;
+  limit: Scalars['Int'];
 };
 
 
@@ -293,6 +300,31 @@ export const MeDocument = gql`
 export function useMeQuery(options?: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'>) {
   return Urql.useQuery<MeQuery, MeQueryVariables>({ query: MeDocument, ...options });
 };
+export const MyPostsDocument = gql`
+    query myPosts($limit: Int!, $cursor: String) {
+  myPosts(limit: $limit, cursor: $cursor) {
+    hasMore
+    posts {
+      id
+      title
+      textSnippet
+      createdAt
+      updatedAt
+      voteState
+      points
+      creatorId
+      creator {
+        id
+        username
+      }
+    }
+  }
+}
+    `;
+
+export function useMyPostsQuery(options: Omit<Urql.UseQueryArgs<MyPostsQueryVariables>, 'query'>) {
+  return Urql.useQuery<MyPostsQuery, MyPostsQueryVariables>({ query: MyPostsDocument, ...options });
+};
 export const PostDocument = gql`
     query Post($id: Int!) {
   post(id: $id) {
@@ -417,6 +449,14 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'BUser', id: number, username: string } | null };
+
+export type MyPostsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  cursor?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type MyPostsQuery = { __typename?: 'Query', myPosts: { __typename?: 'PaginatedPosts', hasMore: boolean, posts: Array<{ __typename?: 'Post', id: number, title: string, textSnippet: string, createdAt: string, updatedAt: string, voteState?: number | null, points: number, creatorId: number, creator: { __typename?: 'BUser', id: number, username: string } }> } };
 
 export type PostQueryVariables = Exact<{
   id: Scalars['Int'];

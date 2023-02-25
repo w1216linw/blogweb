@@ -24,7 +24,7 @@ export const NavBar = () => {
   const router = useRouter();
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
   const [{ data }] = useMeQuery();
-
+  let user = '';
   let body = null;
 
   if (!data?.me) {
@@ -35,10 +35,14 @@ export const NavBar = () => {
       </>
     );
   } else {
+    user = data.me.username;
     body = (
       <Flex gap={2} align="center">
         <Button mr="2rem" colorScheme="gray">
           <NextLink href="/create-post">Create Post</NextLink>
+        </Button>
+        <Button mr="2rem" colorScheme="gray">
+          <NextLink href="/myposts">My Posts</NextLink>
         </Button>
         <Heading size="md">{data.me.username}</Heading>
         <Button
@@ -89,7 +93,7 @@ export const NavBar = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>User: {data.me.username}</DrawerHeader>
+          <DrawerHeader>User: {user}</DrawerHeader>
           <DrawerBody>
             <Flex direction="column" gap={2} align='center'>
               <Button colorScheme="gray" minW='10rem'>
