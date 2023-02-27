@@ -119,7 +119,7 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
             }
           },
           createPost: (_result, args, cache, info) => {
-            invalidatePosts(cache);
+            invalidatePosts(cache); 
           },
           logout: (_result, args, cache, info) => {
             betterUpdateQuery<LogoutMutation, MeQuery>(
