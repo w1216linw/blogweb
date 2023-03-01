@@ -1,5 +1,5 @@
 import { Box, Stack, Flex, Button } from "@chakra-ui/react";
-import { paginator } from "../pages";
+import { paginator } from "../../pages";
 import PostCard from "./PostCard";
 
 interface PostsWrapperProps {

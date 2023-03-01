@@ -1,15 +1,14 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { Box, Button, Flex, useToast} from "@chakra-ui/react";
-import { InputField } from "../components/InputField";
+import { Box, Button, Flex, useToast } from "@chakra-ui/react";
+import { InputField } from "../components/base/InputField";
 import { useLoginMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
 import { createUrqlClient } from "../utils/createUrqlClient";
 import { withUrqlClient } from "next-urql";
 import NextLink from "next/link";
-import FormContainer from "../components/FormContainer";
-
+import FormContainer from "../components/base/FormContainer";
 
 interface loginProps {}
 
@@ -33,10 +32,10 @@ const Login: React.FC<loginProps> = ({}) => {
               duration: 1000,
               isClosable: true,
             });
-            if (typeof router.query.next === 'string'){
+            if (typeof router.query.next === "string") {
               router.push(router.query.next);
             } else {
-              router.push('/');
+              router.push("/");
             }
           }
         }}

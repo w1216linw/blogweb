@@ -10,10 +10,10 @@ import {
 } from "@chakra-ui/react";
 import { withUrqlClient } from "next-urql";
 import { useState } from "react";
-import ErrorMsg from "../components/ErrorMsg";
-import Layout from "../components/Layout";
-import PostCard from "../components/PostCard";
-import PostsWrapper from "../components/PostsWrapper";
+import ErrorMsg from "../components/alert/ErrorMsg";
+import Layout from "../components/base/Layout";
+import PostCard from "../components/post/PostCard";
+import PostsWrapper from "../components/post/PostsWrapper";
 import { usePostsQuery } from "../generated/graphql";
 import { createUrqlClient } from "../utils/createUrqlClient";
 
@@ -37,13 +37,13 @@ const Index = () => {
         <Spinner size="xl" />
       </Center>
     );
-  } 
+  }
 
   if (error) {
     return <ErrorMsg error={error} />;
   }
 
-  return ( 
+  return (
     <Box w="100%" h="100%">
       <Layout variant="regular">
         <PostsWrapper

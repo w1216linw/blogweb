@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { useLogoutMutation, useMeQuery } from "../generated/graphql";
+import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
 import ColorModeSwitcher from "./ColorModeSwitcher";
 
 export const NavBar = () => {
@@ -24,7 +24,7 @@ export const NavBar = () => {
   const router = useRouter();
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
   const [{ data }] = useMeQuery();
-  let user = '';
+  let user = "";
   let body = null;
 
   if (!data?.me) {
@@ -95,12 +95,12 @@ export const NavBar = () => {
           <DrawerCloseButton />
           <DrawerHeader>User: {user}</DrawerHeader>
           <DrawerBody>
-            <Flex direction="column" gap={2} align='center'>
-              <Button colorScheme="gray" minW='10rem'>
+            <Flex direction="column" gap={2} align="center">
+              <Button colorScheme="gray" minW="10rem">
                 <NextLink href="/create-post">Create Post</NextLink>
               </Button>
               <Button
-                minW='10rem'
+                minW="10rem"
                 colorScheme="gray"
                 onClick={() => {
                   logout({});

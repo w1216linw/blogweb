@@ -10,15 +10,13 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, variant, input }) => {
-  if(input) {
+  if (input) {
     return (
       <>
-      <NavBar />
-      <FormContainer>
-        {children}
-      </FormContainer>
-    </>
-    )
+        <NavBar />
+        <FormContainer>{children}</FormContainer>
+      </>
+    );
   }
   return (
     <>
